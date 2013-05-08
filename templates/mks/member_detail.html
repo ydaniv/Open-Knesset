@@ -29,12 +29,16 @@
             // init agenda-pie charts
             $('.agenda-pie').each(function () {
                 var data = $(this).data(),
-                    pie_data = [], k;
+                    pie_data = [],
+                    pie_order = ['for', 'noVote', 'abstain', 'against'],
+                    k;
 
                 for ( k in data ) {
                     pie_data.push({type : k, votes : data[k]});
                 }
-                
+                pie_data.sort(function (a, b) {
+                    return pie_order.indexOf(a.type) - pie_order.indexOf(b.type);
+                });
                 new MKPieChart(this, {
                     width       : 90,
                     height      : 89,
